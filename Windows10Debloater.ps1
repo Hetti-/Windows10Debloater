@@ -471,6 +471,7 @@ Switch ($ReadHost) {
         Remove-Keys
         Write-Output "Stopping telemetry, disabling unneccessary scheduled tasks, and preventing bloatware from returning."
         Protect-Privacy
-        Write-Output "Stopping Edge from taking over as the default PDF Viewer."; $PublishSettings = $false
+        Write-Output "Stopping Edge from taking over as the default PDF Viewer."
+        Write-Output "Finished all tasks."; $PublishSettings = $false
     }
 }
