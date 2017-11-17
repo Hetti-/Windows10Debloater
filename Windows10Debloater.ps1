@@ -147,7 +147,7 @@ Function Protect-Privacy {
         Set-ItemProperty $Suggestions -Name SystemPaneSuggestionsEnabled -Value 0 -Verbose
     }
 
-    #Loads the registry keys/values below into the NTUSER.DAT file. Credit to a60wattfish for the suggestion!
+    #Loads the registry keys/values below into the NTUSER.DAT file which prevents the apps from redownloading
     reg load HKU\Default_User C:\Users\Default\NTUSER.DAT
     Set-ItemProperty -Path Registry::HKU\Default_User\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager -Name SystemPaneSuggestionsEnabled -Value 0
     Set-ItemProperty -Path Registry::HKU\Default_User\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager -Name PreInstalledAppsEnabled -Value 0
@@ -465,8 +465,12 @@ Switch ($ReadHost) {
         }
     }
     Silent {
+        Write-Output "Removing bloatware apps."
         Start-Debloat
+        Write-Output "Removing leftover bloatware registry keys."
         Remove-Keys
-        Protect-Privacy; $PublishSettings = $false
+        Write-Output "Stopping telemetry, disabling unneccessary scheduled tasks, and preventing bloatware from returning."
+        Protect-Privacy
+        Write-Output "Stopping Edge from taking over as the default PDF Viewer."; $PublishSettings = $false
     }
 }
