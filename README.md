@@ -22,3 +22,7 @@ The interactive version is what it implies - a Windows10Debloater script with in
 Download the Windows10Debloater.ps1 file. Next, copy the source code from Windows10Debloater.ps1 and throw it into PowerShell ISE.
 
 Alternatively, download the Windows10DebloaterSilent.ps1 file, place it in any directory of your choice, load PowerShell ISE or PowerShell (64-Bit), change to the directory where you placed the Windows10DebloaterSilent.ps1 file, and add the switch parameter -Debloat: E.g., C:\Windows10DebloaterSilent.ps1 -Debloat
+
+# Credit
+
+Thank you to a60wattfish for some of the suggestions that I have placed into my scripts. 
