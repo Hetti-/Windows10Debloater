@@ -19,8 +19,8 @@ Function Start-Debloat {
     Get-AppxProvisionedPackage -online |
         Where-Object {$_.packagename -notlike "*Microsoft.FreshPaint*"} |
         Where-Object {$_.packagename -notlike "*Microsoft.WindowsCalculator*"} |
-        Where-Object {$_.name -notlike "*Microsoft.WindowsStore*"} |
-        Where-Object {$_.name -notlike "*Microsoft.Windows.Photos*"} |
+        Where-Object {$_.PackageName -notlike "*Microsoft.WindowsStore*"} |
+        Where-Object {$_.packagename -notlike "*Microsoft.Windows.Photos*"} |
         Remove-AppxProvisionedPackage -online -ErrorAction SilentlyContinue
 }
 Function Remove-Keys {
@@ -147,7 +147,7 @@ Function Protect-Privacy {
         Set-ItemProperty $Suggestions -Name SystemPaneSuggestionsEnabled -Value 0 -Verbose
     }
 
-    #Loads the registry keys/values below into the NTUSER.DAT file which prevents the apps from redownloading. Credit to a60wattfish
+    #Loads the registry keys/values below into the NTUSER.DAT file which prevents the apps from redownloading
     reg load HKU\Default_User C:\Users\Default\NTUSER.DAT
     Set-ItemProperty -Path Registry::HKU\Default_User\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager -Name SystemPaneSuggestionsEnabled -Value 0
     Set-ItemProperty -Path Registry::HKU\Default_User\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager -Name PreInstalledAppsEnabled -Value 0
@@ -472,6 +472,7 @@ Switch ($ReadHost) {
         Write-Output "Stopping telemetry, disabling unneccessary scheduled tasks, and preventing bloatware from returning."
         Protect-Privacy
         Write-Output "Stopping Edge from taking over as the default PDF Viewer."
-        Write-Output "Finished all tasks."; $PublishSettings = $false
+        Write-Output "Finished with all tasks."
+        Sleep 2; $PublishSettings = $false
     }
 }
